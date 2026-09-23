@@ -1,0 +1,22 @@
+{
+  "name": "dsh-model-ladder",
+  "version": "0.1.0",
+  "description": "Model high/low ladder: force a high-tier model for a turn window (composer widget next to the native selector), then auto-fall back to the Session's own selection; native model UI untouched",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    }
+  },
+  "license": "MIT"
+}

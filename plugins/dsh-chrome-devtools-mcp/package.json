@@ -1,0 +1,1 @@
+{"name":"dsh-chrome-devtools-mcp","version":"0.1.0","license":"MIT","description":"Expose Google Chrome DevTools MCP server as DSH agent tools","type":"module","main":"lib/index.js","exports":{".":{"default":"./lib/index.js"}},"license":"MIT"}

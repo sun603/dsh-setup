@@ -1,0 +1,22 @@
+{
+  "name": "dsh-web-ui-addons",
+  "version": "0.1.0",
+  "description": "Small Web-UI conveniences: copy Session ID (header button + sidebar session menu item), copy workspace path (sidebar workspace menu item), collapse all workspace groups (workspace header button), open current project in VS Code (session-header button), double-click to collapse an expanded thinking block, Ctrl+Enter-to-send / Enter-for-newline composer toggle",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    }
+  },
+  "license": "MIT"
+}

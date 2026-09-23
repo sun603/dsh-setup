@@ -1,0 +1,16 @@
+{
+  "name": "dsh-codex-bridge",
+  "version": "0.1.0",
+  "description": "Expose the live web-profile session controller over loopback HTTP so external agents (e.g. Codex via an MCP server) can create sessions, inject prompts, read history and cancel turns (web profile plugin, host-only)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,23 @@
+# Local-only files (machine-specific; do not share)
+AGENTS.local.md
+# Which third-party plugins this machine uses is local config (format: AGENTS.md)
+third-party.json
+# Install scripts are generated locally from scripts/install.md
+scripts/*.sh
+scripts/*.ps1
+scripts/*.cmd
+
+# OS litter
+Thumbs.db
+.DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+# Local npm cache scratch
+.npm-cache-tmp/
+# Local scratch (probe scripts, logs, screenshots, schema dumps)
+.tmp/
+# Local backups
+*.bak
+*.bak-*

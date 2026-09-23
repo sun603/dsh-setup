@@ -1,0 +1,14 @@
+{
+  "name": "loop-output-guard",
+  "version": "0.1.0",
+  "description": "Detect repetitive/looping assistant output in real time and terminate the run (web profile plugin, host-only)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "license": "MIT"
+}

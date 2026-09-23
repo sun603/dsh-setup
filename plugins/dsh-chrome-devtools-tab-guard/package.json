@@ -1,0 +1,14 @@
+{
+  "name": "dsh-chrome-devtools-tab-guard",
+  "version": "0.1.0",
+  "description": "Per-session tab ownership guard for the shared chrome-devtools MCP browser (web profile plugin, host-only)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "license": "MIT"
+}
