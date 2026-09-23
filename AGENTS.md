@@ -7,7 +7,7 @@
 ```
 ├── AGENTS.md               # 本文件:项目说明(入库)
 ├── AGENTS.local.md          # 本机环境说明(已 gitignore,不入库)
-├── README.md                # 面向维护者的文档
+├── README.md                # 面向使用者的说明(功能清单 + 快速开始;机制细节在本文件)
 ├── third-party.json          # 本机第三方插件清单(本地配置,已 gitignore;格式见「第三方插件纳管」)
 ├── docs/
 │   └── experience.md         # 经验沉淀:全局 AGENTS.md 每次修改的详细记录(入库)
@@ -78,6 +78,22 @@ window.__ModuleLoader__.load({
    ```
 3. **生效:** web profile 的 HMR 默认禁用,修改后**必须重启 dsh server**。
 
+**手动注册命令**(`scripts/install.sh` 默认模式做的就是这两步,幂等;链接直接指向仓库源码,`git pull` 后重启即生效,无需重装):
+
+```bash
+# Linux / macOS:建农场 symlink
+ln -s "<仓库根>/plugins/<包名>" ~/.dsh/profiles/node_modules/<包名>
+```
+
+```powershell
+# Windows:junction(需管理员 PowerShell 或已开开发者模式)
+mklink /J "$HOME\.dsh\profiles\node_modules\<包名>" "<仓库根>\plugins\<包名>"
+```
+
+**卸载自有插件**:删 `cordis.patch.yml` 里对应的 `- insert:` 段 → 删农场里该包名的链接 → 重启 dsh server。
+
+**换机器**:clone 本仓库 → 按上面逐个插件手动注册 → 重启 dsh server。
+
 ## 第三方插件纳管
 
 第三方插件(npm 发布的 dsh bundle 包)与自有插件是两套逻辑:**源码不 vendor 进 `plugins/`,不钉版本**;并且**用哪些第三方插件属于本机配置**——声明文件 `third-party.json` 放仓库根但已 gitignore,各机器自配,仓库只固定机制与格式。
@@ -86,6 +102,7 @@ window.__ModuleLoader__.load({
 - **安装/升级**:统一走官方 `dsh plugin --profile <p> add <name>@<tag>`(dsh 按已装状态自动调和 profile 的 `dsh.profile.bundles`);不要手编 profile 的 package.json,也不要绕过它裸跑 pnpm。
 - **查新/升级节奏**:`bash scripts/install.sh [profile] --check`(或默认安装模式末尾的版本报告)对比「已装 vs registry dist-tag」;要升级先浏览 `repo` 的 CHANGELOG/releases,确认后 `--update`,重启 dsh server 生效。
 - **卸载**:`dsh plugin --profile <p> remove <name>`,并删 manifest 条目。
+- **核心升级后排障**:升级 dsh 核心后若 web profile 起不来、报 `does not provide an export named ...`,崩的是 **pnpm 装进 profile 的第三方包**(编译时绑的是旧版核心 API,导出被改名/删除就 import 失败),不是本仓库的 junction 插件。修法:升级到已跟上新 API 的版本(`dsh plugin --profile <p> add <name>@latest`,会写 `~/.dsh/profiles/<p>/`,受限沙箱下需 full access)或先 `remove`;应急逃生用 `dsh --profile web-safe`。
 
 ## 备用 profile(web-safe)
 
