@@ -10,7 +10,10 @@
 ├── README.md                # 面向使用者的说明(功能清单 + 快速开始;机制细节在本文件)
 ├── third-party.json          # 本机第三方插件清单(本地配置,已 gitignore;格式见「第三方插件纳管」)
 ├── docs/
-│   └── experience.md         # 经验沉淀:全局 AGENTS.md 每次修改的详细记录(入库)
+│   ├── experience.md                  # 经验沉淀:全局 AGENTS.md 每次修改的详细记录(入库)
+│   ├── issue-*.md                     # 具体问题的排查记录(入库)
+│   ├── third-party-review.md          # 第三方插件评估清单 + 装后验证 + 问题模式(入库)
+│   └── third-party-red-black-list.md  # 试用后抛弃的第三方插件记录(入库)
 ├── scripts/
 │   └── install.md            # 安装脚本模板(install.ps1 / install.sh 由此生成;生成的脚本不入库)
 └── plugins/
@@ -102,6 +105,7 @@ mklink /J "$HOME\.dsh\profiles\node_modules\<包名>" "<仓库根>\plugins\<包�
 - **安装/升级**:统一走官方 `dsh plugin --profile <p> add <name>@<tag>`(dsh 按已装状态自动调和 profile 的 `dsh.profile.bundles`);不要手编 profile 的 package.json,也不要绕过它裸跑 pnpm。
 - **查新/升级节奏**:`bash scripts/install.sh [profile] --check`(或默认安装模式末尾的版本报告)对比「已装 vs registry dist-tag」;要升级先浏览 `repo` 的 CHANGELOG/releases,确认后 `--update`,重启 dsh server 生效。
 - **卸载**:`dsh plugin --profile <p> remove <name>`,并删 manifest 条目。
+- **评估与排障资料**:装前照 `docs/third-party-review.md` 的清单过一遍(来源/包完整性/peer 对齐/客户端 seed/host API),装后按该文 §2 逐项验证再重启;试用后抛弃的插件连原因带清理要点记入 `docs/third-party-red-black-list.md`。两个文档均入库,同样禁含本机信息。
 - **核心升级后排障**:升级 dsh 核心后若 web profile 起不来、报 `does not provide an export named ...`,崩的是 **pnpm 装进 profile 的第三方包**(编译时绑的是旧版核心 API,导出被改名/删除就 import 失败),不是本仓库的 junction 插件。修法:升级到已跟上新 API 的版本(`dsh plugin --profile <p> add <name>@latest`,会写 `~/.dsh/profiles/<p>/`,受限沙箱下需 full access)或先 `remove`;应急逃生用 `dsh --profile web-safe`。
 
 ## 备用 profile(web-safe)
